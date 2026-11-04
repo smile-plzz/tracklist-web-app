@@ -39,7 +39,7 @@ describe('YouTubePlayerWrapper', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     capturedEvents = {};
-    (global as any).window = (global as any).window || {};
+    (globalThis as any).window = (globalThis as any).window || {};
     (window as any).YT = {
       Player: MockYTPlayerConstructor,
       PlayerState: {

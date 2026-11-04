@@ -1,73 +1,129 @@
-# Tracklist
+# Tracklist — JSON YouTube Playlist Player
 
-A clean, modern, zero-backend static web app that plays curated YouTube playlists loaded from JSON or link input. Built with vanilla TypeScript, Vite, and the official YouTube IFrame Player API.
+Tracklist is a fast, minimalist, zero-backend static web application that turns any JSON playlist or raw list of YouTube links into a continuous, auto-advancing audio-visual player using YouTube's official embedded IFrame Player API.
 
 Designed in the spirit of Apple Music and Apple's Human Interface Guidelines: content-first, neutral surfaces, refined typography, and responsive audio-visual playback.
 
-## Features
+---
 
-- **Listener-first Experience**:
-  - One-tap resume from local storage.
-  - Interactive Library with multiple playlists.
-  - Playlist creation, direct YouTube URL/ID pasting, and drag-and-drop JSON import.
-  - Drag-and-drop track reordering with keyboard accessibility.
-  - Mini player bar, Now Playing sheet, and immersive Focus Mode (auto-fading controls).
-  - Stable shuffle and multi-mode repeat (off / all / one).
-  - Media Session API integration (lock screen & hardware controls).
-  - URL hash sharing (share playlists directly with zero backend).
-  - Sleep timer & customizable themes (System / Dark / Light).
-- **Compliant & Private**:
-  - Zero server, zero YouTube API keys required.
-  - Uses YouTube's official embedded player without breaking embed rules.
-  - Auto-skips blocked or unplayable videos gracefully without halting playback.
+## Key Highlights
 
-## Getting Started
+- **Zero Backend & Zero API Keys**: Runs 100% in the browser. Fully adheres to YouTube's embedding terms.
+- **Auto-Advance & Error Recovery**: Automatically moves to the next track on track end; detects unplayable/blocked videos (error codes 2, 5, 100, 101, 150), marks them, and skips ahead smoothly without halting playback.
+- **Smart Queue & Stable Shuffle**: Shuffle uses an unskewed Fisher-Yates permutation preserving current track index so the "Previous" button walks backward correctly.
+- **Library & Multi-Playlist Management**: Create, rename, duplicate, reorder, and delete playlists stored safely in versioned `localStorage`.
+- **Drag-to-Reorder & Keyboard Accessibility**: Drag handles with smooth pointer events and accessible Move Up/Down buttons.
+- **Mini Player & Focus Mode**: Persistent translucent bottom mini-player bar, plus an immersive, distraction-free fullscreen Focus Mode with auto-fading controls after 3 seconds of inactivity.
+- **Zero-Backend Link Sharing**: Encodes playlists into URL hash fragments (`#playlist=...`) allowing instant sharing without a database.
+- **Media Session API**: Full lock screen and hardware media key integration (track title, artist, YouTube thumbnails, and scrubber synchronization).
+- **PWA & Offline Shell**: Installable progressive web application with service worker caching for instant loading.
 
-### Prerequisites
+---
 
-- Node.js (v18+)
-- npm or pnpm
+## Keyboard Shortcuts
 
-### Setup
+| Shortcut | Action |
+| --- | --- |
+| `Space` | Toggle Play / Pause |
+| `N` | Next Track |
+| `P` | Previous Track |
+| `→` (Right Arrow) | Seek forward 5 seconds |
+| `←` (Left Arrow) | Seek backward 5 seconds |
+| `F` | Toggle Focus Mode |
+| `M` | Toggle Mute |
+| `Esc` | Exit Focus Mode / Close Modal |
 
-```bash
-# Navigate to directory
-cd tracklist
+---
 
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-
-# Run unit and integration tests
-npm test
-
-# Build for production
-npm run build
-```
-
-## JSON Schema
-
-Playlists adhere to the `tracklist/1` schema:
+## JSON Schema (`tracklist/1`)
 
 ```json
 {
   "schema": "tracklist/1",
-  "name": "Live Acoustic Sessions",
-  "description": "Intimate live sets and unreleased studio acoustic takes",
+  "name": "Live Acoustic & Studio Sessions",
+  "description": "Essential acoustic and unreleased live cuts",
   "tracks": [
     {
       "videoId": "dQw4w9WgXcQ",
-      "title": "Rick Astley - Never Gonna Give You Up (Pianoforte)",
-      "artist": "Rick Astley"
+      "title": "Rick Astley - Never Gonna Give You Up (Live)",
+      "artist": "Rick Astley",
+      "start": 0,
+      "end": 212
     }
   ]
 }
 ```
 
-## Deployment
+### Schema Rules
 
-Deploy directly to Vercel, Netlify, or GitHub Pages as a static site:
-- Build command: `npm run build`
-- Output directory: `dist`
+- `schema`: Optional string. Defaults to `"tracklist/1"`. Must start with `"tracklist/"`.
+- `name`: Required non-empty string, 1 to 100 characters.
+- `tracks`: Required array of 1 to 500 track items.
+- `tracks[].videoId`: Required exact 11-character YouTube video ID (`^[A-Za-z0-9_-]{11}$`).
+- `tracks[].title`: Required non-empty string.
+- `tracks[].artist`: Optional string.
+- `tracks[].start`, `tracks[].end`: Optional non-negative integer seconds (`end > start`).
+
+---
+
+## AI Assistant Prompt Template
+
+To have an AI assistant (like Gemini, ChatGPT, or Claude) generate a compatible playlist, use this prompt:
+
+```text
+Create a curated music playlist in Tracklist JSON schema format ("tracklist/1").
+Requirements:
+1. Theme / Mood: [Describe your theme or genre here]
+2. Provide valid, real 11-character YouTube video IDs.
+3. Output strictly valid JSON matching this structure:
+{
+  "schema": "tracklist/1",
+  "name": "Playlist Title",
+  "description": "Short description of the vibe",
+  "tracks": [
+    {
+      "videoId": "11_CHAR_ID",
+      "title": "Artist - Song Title (Version)",
+      "artist": "Artist Name"
+    }
+  ]
+}
+```
+
+---
+
+## Development & Testing
+
+```bash
+# Install dependencies
+npm install
+
+# Start Vite local development server
+npm run dev
+
+# Run unit and integration tests (Vitest)
+npm test
+
+# Production build (TypeScript check + Vite bundler)
+npm run build
+```
+
+---
+
+## Deployment to Vercel
+
+Tracklist builds directly into static HTML, CSS, and JS.
+
+1. Push your repository to GitHub.
+2. In Vercel, select **Add New Project** and import your repository.
+3. Framework Preset: **Vite** (Build Command: `npm run build`, Output Directory: `dist`).
+4. Click **Deploy**.
+
+---
+
+## 💡 Vim Tip of the Day
+
+When editing JSON playlists or TypeScript files in Vim/Neovim:
+- To quickly change anything inside quotes without retyping quotes: use **`ci"`** (*change inside quotes*).
+- To delete an entire object or track dictionary inside braces: use **`da{`** (*delete around curly braces*).
+- To duplicate a track block: select it with **`V`** (visual line mode), hit **`y`** to yank, and **`p`** to paste!
