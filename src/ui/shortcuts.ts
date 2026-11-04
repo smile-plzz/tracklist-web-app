@@ -64,3 +64,4 @@ export function setupKeyboardShortcuts(): () => void {
     window.removeEventListener('keydown', handler);
   };
 }
+

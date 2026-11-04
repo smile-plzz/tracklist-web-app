@@ -110,3 +110,4 @@ export function showToast(message: string, duration = 3000): void {
     setTimeout(() => toast.remove(), 200);
   }, duration);
 }
+

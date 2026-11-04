@@ -19,3 +19,4 @@
 - Respect browser autoplay policies: require user initiation for unmuted playback.
 - Gracefully handle blocked/unembeddable videos (error codes 2, 5, 100, 101, 150) without infinite retry loops.
 - Static bundle size must remain lightweight (< 200 KB JS before external YouTube API script).
+

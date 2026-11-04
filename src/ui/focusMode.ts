@@ -95,3 +95,4 @@ export function renderFocusMode(container: HTMLElement): void {
     if (playIcon) playIcon.textContent = state.isPlaying ? '⏸' : '▶';
   });
 }
+

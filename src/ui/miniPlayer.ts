@@ -71,3 +71,4 @@ export function renderMiniPlayer(container: HTMLElement): void {
     }
   });
 }
+
