@@ -1,0 +1,30 @@
+:root {
+  --font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --bg-primary: #0a0a0c;
+  --bg-secondary: #16161a;
+  --bg-tertiary: #222228;
+  --text-primary: #f5f5f7;
+  --text-secondary: #86868b;
+  --accent: #fa2d48; /* Apple Music inspired red-pink */
+  --accent-hover: #ff3b56;
+  --border: rgba(255, 255, 255, 0.08);
+  --radius-card: 12px;
+  --radius-pill: 9999px;
+  --radius-btn: 10px;
+  --transition-fast: 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-smooth: 250ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}

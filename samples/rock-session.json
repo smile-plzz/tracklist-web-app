@@ -1,0 +1,23 @@
+{
+  "schema": "tracklist/1",
+  "name": "Legendary Rock & Acoustic Sessions",
+  "description": "Essential live rock sessions and performances",
+  "tracks": [
+    {
+      "videoId": "fJ9rUzIMcZQ",
+      "title": "Queen - Bohemian Rhapsody (Live Aid 1985)",
+      "artist": "Queen",
+      "start": 0
+    },
+    {
+      "videoId": "L_LUpnjgPso",
+      "title": "Pink Floyd - Comfortably Numb (Pulse 1994)",
+      "artist": "Pink Floyd"
+    },
+    {
+      "videoId": "dQw4w9WgXcQ",
+      "title": "Rick Astley - Never Gonna Give You Up",
+      "artist": "Rick Astley"
+    }
+  ]
+}
