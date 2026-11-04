@@ -34,3 +34,8 @@
 - Implemented PWA assets (`public/manifest.json`, `public/icon.svg`, `public/sw.js`).
 - Added end-to-end integration tests in `tests/integration.test.ts`. All 41 tests passing.
 - Verified production build: JavaScript bundle is 62.16 KB (< 200 KB target).
+
+## [2026-11-04 17:45:00 +06:00] - Git History Sanitization & GitHub Push
+- Resolved GitHub Push Protection block (GH013) by purging accidentally committed personal access token from `gemini.md` across commit history using `git filter-branch`.
+- Cleaned temporary git filter-branch references and verified zero secrets exist across all commits.
+- Successfully pushed `master` to remote `origin` (`https://github.com/smile-plzz/tracklist.git`) with tracking configured.
